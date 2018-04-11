@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca31ac33-5201-4727-8dd4-8cba9fd44857" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="$PROJECT_DIR$/tests/youtube_tests.py" afterPath="$PROJECT_DIR$/tests/youtube_tests.py" />
       <change beforePath="$PROJECT_DIR$/youtube/youtube_scraper.py" afterPath="$PROJECT_DIR$/youtube/youtube_scraper.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,13 +17,18 @@
       <file leaf-file-name="youtube_scraper.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/youtube/youtube_scraper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="79" column="40" lean-forward="true" selection-start-line="79" selection-start-column="40" selection-end-line="79" selection-end-column="40" />
+            <state relative-caret-position="192">
+              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding>
-                <element signature="e#427#645#0" expanded="false" />
-                <element signature="e#697#1109#0" expanded="false" />
-                <element signature="e#1186#1564#0" expanded="false" />
-                <element signature="e#1602#2021#0" expanded="false" />
+                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#494#843#0" expanded="false" />
+                <element signature="e#893#1305#0" expanded="false" />
+                <element signature="e#1381#1761#0" expanded="false" />
+                <element signature="e#1799#2216#0" expanded="false" />
+                <element signature="e#2309#3079#0" expanded="false" />
+                <element signature="e#3129#3480#0" expanded="false" />
+                <element signature="e#3509#4507#0" expanded="false" />
+                <element signature="e#4537#4610#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -32,8 +37,8 @@
       <file leaf-file-name="youtube_tests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/youtube_tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+            <state relative-caret-position="320">
+              <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -249,7 +254,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -262,23 +267,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Program Files/Python36/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="323" column="0" lean-forward="false" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/youtube_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
+        <state relative-caret-position="320">
+          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/youtube/youtube_scraper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="79" column="40" lean-forward="true" selection-start-line="79" selection-start-column="40" selection-end-line="79" selection-end-column="40" />
+        <state relative-caret-position="192">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="e#427#645#0" expanded="false" />
-            <element signature="e#697#1109#0" expanded="false" />
-            <element signature="e#1186#1564#0" expanded="false" />
-            <element signature="e#1602#2021#0" expanded="false" />
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#494#843#0" expanded="false" />
+            <element signature="e#893#1305#0" expanded="false" />
+            <element signature="e#1381#1761#0" expanded="false" />
+            <element signature="e#1799#2216#0" expanded="false" />
+            <element signature="e#2309#3079#0" expanded="false" />
+            <element signature="e#3129#3480#0" expanded="false" />
+            <element signature="e#3509#4507#0" expanded="false" />
+            <element signature="e#4537#4610#0" expanded="false" />
           </folding>
         </state>
       </provider>

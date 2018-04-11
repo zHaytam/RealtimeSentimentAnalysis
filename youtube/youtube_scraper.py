@@ -1,7 +1,8 @@
 import requests
+from threading import Thread, Event
 
 
-class YoutubeScraper:
+class YoutubeScraper(Thread):
     """
     Performs a Youtube Search, selects N videos (ordered by upload date) and monitors their comments.
     Previous comments will also be extracted.
@@ -10,15 +11,19 @@ class YoutubeScraper:
     SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search'
     COMMENT_THREADS_URL = 'https://www.googleapis.com/youtube/v3/commentThreads'
 
-    def __init__(self, api_key, search_q, n_vids, regionCode=None):
+    def __init__(self, api_key, search_q, n_vids, callback, region_code=None, interval=5):
+        self.stop_event = Event()
+        Thread.__init__(self)
         self.api_key = api_key
         self.search_q = search_q
         self.n_vids = 50 if n_vids > 50 else n_vids
-        self.regionCode = regionCode
+        self.callback = callback
+        self.regionCode = region_code
+        self.interval = interval
         self.videos_ids = None
         self.last_comment_per_video = None
 
-    def __generate_search_params__(self):
+    def __generate_search_params(self):
         """
         Returns a parameters dictionary for the search query
         """
@@ -36,7 +41,7 @@ class YoutubeScraper:
 
         return params
 
-    def __generate_comment_threads_params__(self, pageToken=None):
+    def __generate_comment_threads_params(self, page_token=None):
         """
         Returns a parameters dictionary for the comment threads query
         """
@@ -48,8 +53,8 @@ class YoutubeScraper:
             'textFormat': 'plainText'
         }
 
-        if pageToken is not None:
-            params['pageToken'] = pageToken
+        if page_token is not None:
+            params['pageToken'] = page_token
 
         return params
 
@@ -58,7 +63,7 @@ class YoutubeScraper:
         Performs the Youtube Search and selects the top newest {n_vids} videos.
         """
 
-        params = self.__generate_search_params__()
+        params = self.__generate_search_params()
         json_result = requests.get(self.SEARCH_URL, params).json()
 
         if not json_result['items']:
@@ -67,7 +72,38 @@ class YoutubeScraper:
         self.videos_ids = [item['id']['videoId'] for item in json_result['items']]
         self.last_comment_per_video = {}
 
-    def start_monitoring(self, callback, interval=5):
+    def __extract_comments(self, video_id, page_token=None, last_comment_id=None):
+        """
+        Performs the comment threads request and calls callback for each comment.
+        Returns the json_result.
+        """
+        params = self.__generate_comment_threads_params(page_token)
+        params['videoId'] = video_id
+        json_result = requests.get(self.COMMENT_THREADS_URL, params).json()
+
+        if 'items' not in json_result or len(json_result['items']) == 0:
+            return None
+
+        for item in json_result['items']:
+            # In case we reached the last comment registred
+            if last_comment_id is not None and item['id'] == last_comment_id:
+                break
+
+            comment = item['snippet']['topLevelComment']['snippet']['textOriginal']
+            self.callback(video_id, comment)
+
+        return json_result
+
+    def __check_for_new_comments(self):
+        """
+        Checks if there is new comments in the videos
+        """
+        for video_id in self.videos_ids:
+            json_result = self.__extract_comments(video_id, last_comment_id=self.last_comment_per_video[video_id])
+            if json_result is not None:
+                self.last_comment_per_video[video_id] = json_result['items'][0]['id']
+
+    def run(self):
         """
         Starts the monitoring process with the given interval.
         The callback method is called everytime a new comment is retrieved
@@ -75,20 +111,28 @@ class YoutubeScraper:
         if self.videos_ids is None:
             raise ValueError('No video ids available, call fetch_videos first.')
 
-        params = self.__generate_comment_threads_params__()
+        self.last_comment_per_video = {}
 
         for video_id in self.videos_ids:
-            params['videoId'] = video_id
-            json_result = requests.get(self.COMMENT_THREADS_URL, params).json()
+            json_result = self.__extract_comments(video_id)
 
-            if not json_result['items']:
+            if json_result is None:
+                self.last_comment_per_video[video_id] = None
+                print('{} has no comments.'.format(video_id))
                 continue
 
-            last_comment_id = None
+            self.last_comment_per_video[video_id] = json_result['items'][0]['id']
 
-            for item in json_result['items']:
-                comment = item['snippet']['topLevelComment']['snippet']['textOriginal']
-                callback(video_id, comment)
-                last_comment_id = item['id']
+            # Check if there are next pages
+            while 'nextPageToken' in json_result:
+                json_result = self.__extract_comments(video_id, json_result['nextPageToken'])
 
-            self.last_comment_per_video[video_id] = last_comment_id
+        # Start monitoring
+        while not self.stop_event.wait(self.interval):
+            self.__check_for_new_comments()
+
+    def stop(self):
+        """
+        Sets the stop_event
+        """
+        self.stop_event.set()
