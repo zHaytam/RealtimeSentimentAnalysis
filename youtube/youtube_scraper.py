@@ -62,7 +62,6 @@ class YoutubeScraper(Thread):
         """
         Performs the Youtube Search and selects the top newest {n_vids} videos.
         """
-
         params = self.__generate_search_params()
         json_result = requests.get(self.SEARCH_URL, params).json()
 
@@ -72,7 +71,7 @@ class YoutubeScraper(Thread):
         self.videos_ids = [item['id']['videoId'] for item in json_result['items']]
         self.last_comment_per_video = {}
 
-    def __extract_comments(self, video_id, page_token=None, last_comment_id=None):
+    def __extract_comments(self, video_id, page_token=None):
         """
         Performs the comment threads request and calls callback for each comment.
         Returns the json_result.
@@ -86,6 +85,7 @@ class YoutubeScraper(Thread):
 
         for item in json_result['items']:
             # In case we reached the last comment registred
+            last_comment_id = self.last_comment_per_video[video_id]
             if last_comment_id is not None and item['id'] == last_comment_id:
                 break
 
@@ -99,7 +99,7 @@ class YoutubeScraper(Thread):
         Checks if there is new comments in the videos
         """
         for video_id in self.videos_ids:
-            json_result = self.__extract_comments(video_id, last_comment_id=self.last_comment_per_video[video_id])
+            json_result = self.__extract_comments(video_id)
             if json_result is not None:
                 self.last_comment_per_video[video_id] = json_result['items'][0]['id']
 
@@ -110,8 +110,6 @@ class YoutubeScraper(Thread):
         """
         if self.videos_ids is None:
             raise ValueError('No video ids available, call fetch_videos first.')
-
-        self.last_comment_per_video = {}
 
         for video_id in self.videos_ids:
             json_result = self.__extract_comments(video_id)
@@ -128,6 +126,7 @@ class YoutubeScraper(Thread):
                 json_result = self.__extract_comments(video_id, json_result['nextPageToken'])
 
         # Start monitoring
+        print('Started monitoring')
         while not self.stop_event.wait(self.interval):
             self.__check_for_new_comments()
 
