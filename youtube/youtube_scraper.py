@@ -36,6 +36,23 @@ class YoutubeScraper:
 
         return params
 
+    def __generate_comment_threads_params__(self, pageToken=None):
+        """
+        Returns a parameters dictionary for the comment threads query
+        """
+        params = {
+            'key': self.api_key,
+            'part': 'snippet',
+            'maxResults': 100,
+            'order': 'time',
+            'textFormat': 'plainText'
+        }
+
+        if pageToken is not None:
+            params['pageToken'] = pageToken
+
+        return params
+
     def fetch_videos(self):
         """
         Performs the Youtube Search and selects the top newest {n_vids} videos.
@@ -58,13 +75,7 @@ class YoutubeScraper:
         if self.videos_ids is None:
             raise ValueError('No video ids available, call fetch_videos first.')
 
-        params = {
-            'key': self.api_key,
-            'part': 'snippet',
-            'maxResults': 100,
-            'order': 'time',
-            'textFormat': 'plainText'
-        }
+        params = self.__generate_comment_threads_params__()
 
         for video_id in self.videos_ids:
             params['videoId'] = video_id
