@@ -21,6 +21,8 @@ def test2():
 
     # Set the video id manually to test
     ys.videos_ids = ['FdusB7xepE4']
+    ys.last_comment_per_video['FdusB7xepE4'] = None
+
     ys.start()
 
 

@@ -85,7 +85,7 @@ class YoutubeScraper(Thread):
 
         for item in json_result['items']:
             # In case we reached the last comment registred
-            last_comment_id = self.last_comment_per_video[video_id]
+            last_comment_id = self.last_comment_per_video[video_id] if video_id in self.last_comment_per_video else None
             if last_comment_id is not None and item['id'] == last_comment_id:
                 break
 
