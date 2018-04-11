@@ -17,7 +17,10 @@ def test1():
 def test2():
     ys = YoutubeScraper('AIzaSyB5XIRU9N6tj6q2Ea7bypaC96o0NNMXyW8', 'XXX', 1,
                         lambda video_id, comment: print(video_id, comment))
-    ys.videos_ids = ['WlsHijhGSuo']
+    ys.fetch_videos()
+
+    # Set the video id manually to test
+    ys.videos_ids = ['FdusB7xepE4']
     ys.start()
 
 

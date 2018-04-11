@@ -21,21 +21,20 @@
             <state relative-caret-position="442">
               <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#494#843#0" expanded="false" />
                 <element signature="e#893#1305#0" expanded="false" />
                 <element signature="e#1381#1761#0" expanded="false" />
-                <element signature="e#1799#2216#0" expanded="false" />
-                <element signature="e#2309#3079#0" expanded="false" />
-                <element signature="e#3129#3480#0" expanded="false" />
-                <element signature="e#3509#4507#0" expanded="false" />
-                <element signature="e#4537#4610#0" expanded="false" />
+                <element signature="e#1799#2215#0" expanded="false" />
+                <element signature="e#2286#3124#0" expanded="false" />
+                <element signature="e#3174#3470#0" expanded="false" />
+                <element signature="e#3499#4491#0" expanded="false" />
+                <element signature="e#4521#4594#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="youtube_tests.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="youtube_tests.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/youtube_tests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
@@ -62,8 +61,8 @@
       <list>
         <option value="$PROJECT_DIR$/youtube_scraper.py" />
         <option value="$PROJECT_DIR$/youtube/__init__.py" />
-        <option value="$PROJECT_DIR$/tests/youtube_tests.py" />
         <option value="$PROJECT_DIR$/youtube/youtube_scraper.py" />
+        <option value="$PROJECT_DIR$/tests/youtube_tests.py" />
       </list>
     </option>
   </component>
@@ -255,7 +254,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -307,16 +306,23 @@
         <state relative-caret-position="442">
           <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
             <element signature="e#494#843#0" expanded="false" />
             <element signature="e#893#1305#0" expanded="false" />
             <element signature="e#1381#1761#0" expanded="false" />
-            <element signature="e#1799#2216#0" expanded="false" />
-            <element signature="e#2309#3079#0" expanded="false" />
-            <element signature="e#3129#3480#0" expanded="false" />
-            <element signature="e#3509#4507#0" expanded="false" />
-            <element signature="e#4537#4610#0" expanded="false" />
+            <element signature="e#1799#2215#0" expanded="false" />
+            <element signature="e#2286#3124#0" expanded="false" />
+            <element signature="e#3174#3470#0" expanded="false" />
+            <element signature="e#3499#4491#0" expanded="false" />
+            <element signature="e#4521#4594#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/youtube_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
