@@ -68,8 +68,13 @@ class YoutubeScraper(Thread):
         if not json_result['items']:
             raise ValueError(json_result)
 
-        self.videos_ids = [item['id']['videoId'] for item in json_result['items']]
+        self.videos_ids = []
         self.last_comment_per_video = {}
+
+        for item in json_result['items']:
+            video_id = item['id']['videoId']
+            self.videos_ids.append(video_id)
+            self.last_comment_per_video[video_id] = []
 
     def __extract_comments(self, video_id, page_token=None):
         """
@@ -84,11 +89,18 @@ class YoutubeScraper(Thread):
             return None
 
         for item in json_result['items']:
+            comment_id = item['id']
+
             # In case we reached the last comment registred
-            last_comment_id = self.last_comment_per_video[video_id] if video_id in self.last_comment_per_video else None
-            if last_comment_id is not None and item['id'] == last_comment_id:
+            if len(self.last_comment_per_video[video_id]) > 0 and \
+                    comment_id == self.last_comment_per_video[video_id][0]:
                 break
 
+            # Ignore the comments we already have (in case someone deletes his comment)
+            if comment_id in self.last_comment_per_video[video_id]:
+                continue
+
+            self.last_comment_per_video[video_id].append(comment_id)
             comment = item['snippet']['topLevelComment']['snippet']['textOriginal']
             self.callback(video_id, comment)
 
@@ -100,8 +112,6 @@ class YoutubeScraper(Thread):
         """
         for video_id in self.videos_ids:
             json_result = self.__extract_comments(video_id)
-            if json_result is not None:
-                self.last_comment_per_video[video_id] = json_result['items'][0]['id']
 
     def run(self):
         """
@@ -115,11 +125,9 @@ class YoutubeScraper(Thread):
             json_result = self.__extract_comments(video_id)
 
             if json_result is None:
-                self.last_comment_per_video[video_id] = None
+                self.last_comment_per_video[video_id] = []
                 print('{} has no comments.'.format(video_id))
                 continue
-
-            self.last_comment_per_video[video_id] = json_result['items'][0]['id']
 
             # Check if there are next pages
             while 'nextPageToken' in json_result:

@@ -12,7 +12,7 @@ class CommentsProvider:
         self.producer = KafkaProducer(bootstrap_servers='localhost:9092')
 
     def __on_comment(self, video_id, comment):
-        self.producer.send('test', bytes('{}||{}'.format(video_id, comment), 'utf-8'))
+        self.producer.send('comments', bytes('{}\t{}'.format(video_id, comment), 'utf-8'))
         print(video_id, comment)
 
     def start(self):
