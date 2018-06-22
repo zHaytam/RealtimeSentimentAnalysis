@@ -1,5 +1,9 @@
 # RealtimeSentimentAnalysis
 
+![Logo](https://i.imgur.com/kYamDzF.png)
+
+## Project structure
+
 ![Project Structure](https://github.com/zHaytam/RealtimeSentimentAnalysis/blob/master/resources/ProjectStructure.png)
 
 ## How it works
